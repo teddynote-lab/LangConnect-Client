@@ -80,6 +80,21 @@ services:
       - ./.streamlit:/app/.streamlit
     networks:
       - langconnect-network
+      
+  nextjs:
+    build:
+      context: ./next-connect-ui
+      dockerfile: Dockerfile
+    container_name: next-connect-ui
+    restart: always
+    depends_on:
+      - api
+    ports:
+      - "3893:3893"
+    environment:
+      API_URL: http://api:8080
+    networks:
+      - langconnect-network
 
 
 volumes:
