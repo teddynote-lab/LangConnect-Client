@@ -330,7 +330,7 @@ export function CreateServerDialog({
                         placeholder={t('server.argumentPlaceholder')}
                         value={argValue}
                         onChange={(e) => setArgValue(e.target.value)}
-                        onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addArg())}
+                        onKeyDown={(e) => e.key === 'Enter' && (e.preventDefault(), addArg())}
                       />
                       <Button type="button" onClick={addArg} size="sm">
                         <Plus className="h-4 w-4" />
