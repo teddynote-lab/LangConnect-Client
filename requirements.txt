@@ -24,4 +24,5 @@ supabase>=2.15.1
 requests>=2.31.0
 pandas>=2.2.0
 fastmcp>=0.1.0
-email-validator>=2.1.0 
+email-validator>=2.1.0
+docker>=7.0.0
