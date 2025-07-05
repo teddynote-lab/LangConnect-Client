@@ -5,6 +5,14 @@
 .pnpm-store/
 CLAUDE.md
 
+# Development tools
+.cursor/
+
+# Project documentation and rules
+GEMINI.md
+/rules/
+/docs/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

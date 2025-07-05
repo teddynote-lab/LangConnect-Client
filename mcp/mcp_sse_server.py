@@ -68,6 +68,10 @@ def sign_in(email: str, password: str):
 
 def test_token(token: str):
     """Test if the token works by calling the collections endpoint."""
+    # In testing mode, always return True for test tokens
+    if os.getenv("IS_TESTING", "").lower() == "true" and token in ["user1", "user2"]:
+        return True
+    
     try:
         response = requests.get(
             f"{API_BASE_URL}/collections", headers={"Authorization": f"Bearer {token}"}
@@ -152,6 +156,11 @@ def get_access_token():
 def ensure_valid_token():
     """Ensure we have a valid token, prompting for login if necessary."""
     global SUPABASE_JWT_SECRET
+
+    # Check if we're in testing mode
+    if os.getenv("IS_TESTING", "").lower() == "true":
+        print("🧪 Running in testing mode - authentication bypassed")
+        return "user1"  # Use test token
 
     # First check if we have a token
     if SUPABASE_JWT_SECRET:

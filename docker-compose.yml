@@ -37,6 +37,7 @@ services:
         condition: service_healthy
     ports:
       - "8080:8080"
+      - "8081:8081"  # MCP Controller API port
     env_file:
       - .env
     environment:
@@ -50,9 +51,15 @@ services:
       POSTGRES_SSLMODE: disable  # For development environment
       DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:${POSTGRES_PORT}/${POSTGRES_DB}
       # Allow all localhost origins
-      ALLOW_ORIGINS: '["http://localhost:3000", "http://localhost:8080", "http://localhost", "http://127.0.0.1:3000", "http://127.0.0.1:8080", "http://127.0.0.1"]'
+      ALLOW_ORIGINS: '["http://localhost:3000", "http://localhost:8080", "http://localhost:8081", "http://localhost", "http://127.0.0.1:3000", "http://127.0.0.1:8080", "http://127.0.0.1:8081", "http://127.0.0.1"]'
+      # MCP Controller settings
+      MCP_CONTROLLER_PORT: 8081
+      # Development mode
+      IS_TESTING: "true"
     volumes:
       - ./langconnect:/app/langconnect
+      - /var/run/docker.sock:/var/run/docker.sock:rw  # Docker socket for container management
+    user: root  # Temporarily run as root for Docker access
     networks:
       - langconnect-network
       
@@ -83,6 +90,20 @@ services:
     networks:
       - langconnect-network
 
+  # MCP Server Builder
+  # This service only builds the MCP image, doesn't run a container
+  # Usage: docker compose --profile mcp build
+  mcp:
+    build:
+      context: ./mcp
+      dockerfile: Dockerfile
+    image: langconnect-mcp:latest
+    container_name: mcp-builder
+    profiles:
+      - mcp
+    command: echo "MCP image built successfully"
+    networks:
+      - langconnect-network
 
 volumes:
   postgres_data:

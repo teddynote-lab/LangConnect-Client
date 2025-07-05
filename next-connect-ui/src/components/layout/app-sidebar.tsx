@@ -8,6 +8,7 @@ import {
   Database,
   Code,
   Globe,
+  Server,
 } from "lucide-react"
 import {
   Sidebar,
@@ -66,6 +67,12 @@ export function AppSidebar() {
       href: "/api-tester",
       icon: Code,
       isActive: pathname.startsWith("/api-tester"),
+    },
+    {
+      name: t("sidebar.mcp"),
+      href: "/mcp",
+      icon: Server,
+      isActive: pathname.startsWith("/mcp"),
     },
   ]
 

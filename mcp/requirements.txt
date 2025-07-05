@@ -1,0 +1,26 @@
+# MCP Server Dependencies
+
+# FastMCP Framework
+fastmcp>=0.1.0
+
+# HTTP/SSE Support
+httpx>=0.25.0
+starlette>=0.27.0
+sse-starlette>=1.6.5
+
+# LangChain for multi-query
+langchain-core>=0.1.0
+langchain-openai>=0.0.5
+
+# Async Support
+asyncio>=3.4.3
+
+# Environment Management
+python-dotenv>=1.0.0
+
+# Authentication
+requests>=2.31.0
+pyjwt>=2.8.0
+
+# Utilities
+pydantic>=2.5.0
